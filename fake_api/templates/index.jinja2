@@ -2,11 +2,11 @@
   <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" integrity="sha256-IPtNBA1od/cGBfXTxYDxuT5+Y2BKy14o6j0FaIXDmYk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
     <style>
       .card:not(:last-child) { margin-bottom: 2rem; }
-      .card-content { padding: 0; }
-      pre.prettyprint { border: none; padding: 1rem; }
+      .card-content, .content pre { padding: 0; }
+      .hljs { padding: 1rem; }
     </style>
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
   </head>
@@ -51,13 +51,21 @@
                 </div>
               </div>
               <div class="card-content">
-                <pre class="prettyprint"><code class="language-js">{{ req.pretty }}</code></pre>
+                <pre><code class="json">{{ req | tojson | safe }}</code></pre>
               </div>
             </div>
           {% endfor %}
         </div>
       </div>
     </section>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js" integrity="sha256-hj+5FRlAuvAFANiefn0PpJYCkV1X4QT9EgiPd+6QnCw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/json.min.js" integrity="sha256-KPdGtw3AdDen/v6+9ue/V3m+9C2lpNiuirroLsHrJZM=" crossorigin="anonymous"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+      var nodes = document.querySelectorAll('.json');
+      for (var i = 0; i < nodes.length; i += 1) {
+        nodes[i].innerText = JSON.stringify(JSON.parse(nodes[i].innerText), null, 2);
+      }
+    </script>
   </body>
 </html>
