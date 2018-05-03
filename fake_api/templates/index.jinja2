@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" integrity="sha256-IPtNBA1od/cGBfXTxYDxuT5+Y2BKy14o6j0FaIXDmYk=" crossorigin="anonymous" />
+    <style>
+      .card:not(:last-child) { margin-bottom: 2rem; }
+      .card-content { padding: 0; }
+      pre.prettyprint { border: none; padding: 1rem; }
+    </style>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <nav class="navbar has-shadow">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          Request log
+        </a>
+      </div>
+    </nav>
+    <section class="section">
+      <div class="container">
+        <div class="content">
+          <div class="level">
+            <div class="level-left"></div>
+            <div class="level-right">
+              <div class="level-item">
+                <a class="button" href="/">
+                  <span class="icon">
+                    <i class="fa fa-sync"></i>
+                  </span>
+                  <span>Refresh</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          {% for req in requests %}
+            <div class="card">
+              <div class="card-header">
+                <div class="level card-header-title">
+                  <div class="level-left">
+                    <div class="level-item">
+                      {{ req.method }} {{ req.path }}
+                    </div>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      {{ req.timestamp.to_rss_string() }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-content">
+                <pre class="prettyprint"><code class="language-js">{{ req.pretty }}</code></pre>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js" integrity="sha256-hj+5FRlAuvAFANiefn0PpJYCkV1X4QT9EgiPd+6QnCw=" crossorigin="anonymous"></script>
+  </body>
+</html>
